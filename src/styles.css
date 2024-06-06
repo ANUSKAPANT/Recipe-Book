@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.list-group-item {
+  border: 1px solid lightgray !important;
+}
+
+li.nav-item.active {
+  text-decoration: underline;
+  background-color: lightgrey;
+}
