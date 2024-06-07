@@ -1,13 +1,10 @@
-<div class="row">
-  <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <div class="d-flex justify-content-center">
-      <!-- <div class="alert alert-danger" *ngIf="error"><p>{{error}}</p></div> -->
-      <!-- <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert> -->
-      <ng-template appPlaceholder></ng-template>
-      <div *ngIf="isLoading" class="spinner-border text-info" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+<div class="row justify-content-center">
+  <div class="d-flex justify-content-center">
+    <!-- <div class="alert alert-danger" *ngIf="error"><p>{{error}}</p></div> -->
+    <!-- <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert> -->
+    <ng-template appPlaceholder></ng-template>
+  </div>
+  <div class="col-xs-12 col-md-6 col-md-offset-3 card">
     <form (ngSubmit)="onAuthenticate(authForm)" #authForm="ngForm" *ngIf="!isLoading">
       <div class="form-group">
         <label for="email">Email</label>
@@ -34,6 +31,9 @@
       <div>
         <button class="btn btn-primary me-4" type="submit" [disabled]="!authForm.valid">
           {{isLoginMode ?  'Login' : 'SignUp'}}
+          <div *ngIf="isLoading" class="mx-2 spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </button>
         <button class="btn btn-primary" type="button" (click)="onSwitchMode()">
           Switch To {{isLoginMode ? 'SignUp' : 'Login'}}
