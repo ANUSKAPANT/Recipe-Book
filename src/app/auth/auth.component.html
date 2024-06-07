@@ -38,6 +38,9 @@
         <button class="btn btn-primary" type="button" (click)="onSwitchMode()">
           Switch To {{isLoginMode ? 'SignUp' : 'Login'}}
         </button>
+        <button class="btn btn-success mx-4" (click)="onGuestLogin(authForm)" type="submit">
+          Guest Login
+        </button>
       </div>    
     </form>
   </div>

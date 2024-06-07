@@ -13,9 +13,11 @@ import { PlaceholderDirective } from '../shared/placeholder.directive';
 })
 
 export class AuthComponent implements OnDestroy {
-  isLoginMode : boolean = false;
+  isLoginMode : boolean = true;
   isLoading: boolean = false;
   error : string = '';
+  guestLogin : boolean = false;
+
   private closeSubs! : Subscription;
   @ViewChild(PlaceholderDirective) alertHost! : PlaceholderDirective;
   
@@ -27,18 +29,27 @@ export class AuthComponent implements OnDestroy {
     this.isLoginMode = !this.isLoginMode;
   }
 
+  onGuestLogin(form : NgForm) {
+    this.guestLogin = true;
+    this.onAuthenticate(form);
+  }
+
   onAuthenticate(form : NgForm) {
-    if(!form.valid) return;
+    if(!this.guestLogin && !form.valid) return;
     let authObs : Observable<AuthResponseData>;
 
     this.isLoading = true;
     const email = form.value.email;
     const password = form.value.password;
 
-    if(this.isLoginMode) {
-      authObs = this.authService.login(email,password);
-    } else {
-      authObs = this.authService.signUp(email, password);
+    if(this.guestLogin) authObs = this.authService.login("test@gmail.com", "test123");
+
+    else {
+      if(this.isLoginMode) {
+        authObs = this.authService.login(email,password);
+      } else {
+        authObs = this.authService.signUp(email, password);
+      }
     }
 
     authObs.subscribe(resData => {
